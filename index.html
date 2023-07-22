@@ -44,9 +44,6 @@
     var PresentBubbles = 0;
     var img;
     var something = [];
-    
-    
-      
   
     window.onload = function() {
     
@@ -87,7 +84,14 @@
   
     function init()  {
     
+    
+      CanvasSizeX  = document.documentElement.clientWidth;
+      CanvasSizeY  = document.documentElement.clientHeight;
+    
       c = document.getElementById("myCanvas");
+      c.width  = CanvasSizeX;
+      c.height = CanvasSizeY;
+      
       ctx = c.getContext("2d");  
       img = document.getElementById("MyBubble");
     }
