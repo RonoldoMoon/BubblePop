@@ -1,0 +1,103 @@
+<html>
+  <head>
+  <meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+    <title>Bubble Pop</title>
+  
+  <script>
+  
+  function rnd()  {
+  
+    return (Math.floor(Math.random() * 100)%6) + 1;
+  }
+  
+  class bubble {
+    constructor(x, y, dx, dy) {  //only need'this' in constructor
+      this.x = x;
+      this.y = y;
+      
+      this.dx = dx;
+      this.dy = dy;
+    }
+    
+    move()  {
+    
+      this.x += this.dx;
+      this.y += this.dy;
+      
+      if      ( this.x <= ( 0 ) )               this.dx *= -1;
+      else if ( this.y <= ( 0 ) )               this.dy *= -1;
+      else if ( this.x >= ( CanvasSizeX - img.width  ) ) this.dx *= -1;
+      else if ( this.y >= ( CanvasSizeY - img.height ) ) this.dy *= -1; //or fall off
+    }
+    
+    draw(context)  {
+    
+      context.drawImage(img, this.x, this.y);
+    }
+  }
+  
+    var CanvasSizeX    = 180;
+    var CanvasSizeY    = 400;
+    var radius         = 20;
+    var MaxBubbles     = 18;
+    var PresentBubbles = 0;
+    var img;
+    var something = [];
+    
+    
+      
+  
+    window.onload = function() {
+    
+      init();
+      
+      //const myBubble = new bubble(30, 30, rnd(), rnd());
+      
+      setInterval(function () {
+        
+	//myBubble.move();
+	
+        for ( let i = 0; i < something.length; i++ )  {
+	
+	  something[i].move();
+	}
+	
+	ctx.clearRect(0, 0, c.width, c.height);
+	
+	for ( let i = 0; i < something.length; i++ )  {
+	
+	  something[i].draw(ctx);
+	}
+	
+	//myBubble.draw(ctx);
+      }, 120);
+      
+      setInterval(function () {
+      
+        if ( something.length < MaxBubbles )
+          something.push(new bubble(20, 20, rnd(), rnd()));  //move rnd internal
+      }, 2000);
+    
+    }
+
+    var c;
+    var ctx;
+  
+  
+    function init()  {
+    
+      c = document.getElementById("myCanvas");
+      ctx = c.getContext("2d");  
+      img = document.getElementById("MyBubble");
+    }
+
+  </script> 
+</head>
+
+  <body bgcolor="#B0E0E6">
+
+     <img hidden src="bubble.png" id="MyBubble">
+     
+     <canvas id="myCanvas" width="180" height="400"></canvas>
+  </body>
+</html>
